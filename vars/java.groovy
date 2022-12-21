@@ -1,30 +1,23 @@
 def call() {
     node {
 
-        stage('Checkout Code') {
-            cleanWs()
-            sh 'pwd'
-            sh 'ls'
-            git branch: 'main', url: "${env.REPO_URL}"
-            sh 'pwd'
-            sh 'ls'
-        }
+        common.checkout()
 
-        stage('Compile') {
+         stage('Compile') {
             echo 'Compile'
-        }
+         }
 
-        stage('Code Quality') {
+         stage('Code Quality') {
             echo 'Code Quality'
-        }
+         }
 
-        stage('Test Cases') {
+         stage('Test Cases') {
                 echo 'Test Cases'
-        }
+         }
 
-        stage('Publish A Release') {
+         stage('Publish A Release') {
                 echo 'Publish A Release'
-        }
+         }
 
     }
 
