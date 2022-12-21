@@ -21,7 +21,7 @@ def compile(appType) {
 
 def codeQuality() {
     stage('Code Quality') {
-        echo 'Code Quality'
+        sh 'sonar-scanner -Dsonar.login=admin -Dsonar.password=admin123'
     }
 }
 
