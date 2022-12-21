@@ -3,7 +3,11 @@ def call() {
 
         stage('Checkout Code') {
             cleanWs()
+            sh 'pwd'
+            sh 'ls'
             git branch: 'main', url: "${env.REPO_URL}"
+            sh 'pwd'
+            sh 'ls'
         }
 
         stage('Compile') {
