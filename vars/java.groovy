@@ -1,6 +1,10 @@
 def call() {
     node {
 
+        stage('Checkout Code') {
+            git branch: 'main', url: "${env.REPO_URL}"
+        }
+
         stage('Compile') {
             echo 'Compile'
         }
