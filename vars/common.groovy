@@ -30,3 +30,7 @@ def release() {
         echo 'Publish A Release'
     }
 }
+
+def mail() {
+    mail bcc: '', body: "<h1>Pipeline Failure</h1><br>Project Name: ${COMPONENT}\nURL = ${BUILD_URL}", cc: '', charset: 'UTF-8', from: 'divya5guntaka@gmail.com', mimeType: 'text/html', replyTo: 'divya5guntaka@gmail.com', subject: "ERROR CI: Component Name - ${COMPONENT}", to: "divya5guntaka@gmail.com"
+}
