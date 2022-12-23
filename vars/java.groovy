@@ -8,7 +8,9 @@ def call() {
             common.compile("java")
             common.codeQuality()
             common.testCases("java")
-            common.release()
+            if(env.TAG_NAME ==~ ".*") {
+                common.release("java")
+            }
         } catch (e) {
             common.mail()
         }
