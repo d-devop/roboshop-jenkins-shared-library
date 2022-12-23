@@ -19,6 +19,26 @@ def compile(appType) {
 
 }
 
+def testCases(appType) {
+
+    stage('Unit Tests') {
+        if(appType == "java") {
+            sh 'mvn test || true'
+        }
+
+        if(appType == "nodejs") {
+            sh 'npm test || true'
+        }
+
+        if(appType == "python") {
+            sh 'python3 -m unittest *.py || true'
+        }
+
+    }
+
+
+}
+
 def codeQuality() {
     stage('Code Quality') {
         //sh "sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.login=admin -Dsonar.password=admin123 -Dsonar.host.url=http://172.31.3.7:9000 -Dsonar.projectKey=${env.COMPONENT} ${SONAR_OPTS}"
