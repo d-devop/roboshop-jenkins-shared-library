@@ -46,10 +46,14 @@ def codeQuality() {
     }
 }
 
-def release() {
+def release(appType) {
     stage('Publish A Release') {
-        echo 'Publish A Release'
-        sh 'env'
+        if (appType == "nodejs") {
+            sh '''
+              npm install 
+              zip -r ${COMPONENT}-${TAG_NAME}.zip node_modules server.js schema
+            '''
+        }
     }
 }
 
