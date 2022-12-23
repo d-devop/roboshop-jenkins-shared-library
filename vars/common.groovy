@@ -49,6 +49,7 @@ def codeQuality() {
 def release() {
     stage('Publish A Release') {
         echo 'Publish A Release'
+        sh 'env'
     }
 }
 
