@@ -52,11 +52,32 @@ def release(appType) {
             sh '''
               npm install 
               zip -r ${COMPONENT}-${TAG_NAME}.zip node_modules server.js schema
-              curl -v -u admin:admin123 --upload-file ${COMPONENT}-${TAG_NAME}.zip http://172.31.12.48:8081/repository/${COMPONENT}/${COMPONENT}-${TAG_NAME}.zip\
             '''
         }
     }
 }
+        if (appType == "java") {
+           sh '''
+             mvn package 
+             cp target/${COMPONENT}-1.0.jar ${COMPONENT}.jar
+             zip -r ${COMPONENT}-${TAG_NAME}.zip ${COMPONENT}.jar
+           '''
+        }
+
+        if (appType == "python") {
+           sh '''
+             zip -r ${COMPONENT}-${TAG_NAME}.zip *.ini *.py *.txt
+           '''
+        }
+
+        if (appType == "nginx") {
+            sh '''
+              zip -r ${COMPONENT}-${TAG_NAME}.zip *
+              zip -d ${COMPONENT}-${TAG_NAME}.zip Jenkinsfile 
+            '''
+        }
+
+        sh 'curl -v -u admin:admin123 --upload-file ${COMPONENT}-${TAG_NAME}.zip http://172.31.12.48:8081/repository/${COMPONENT}/${COMPONENT}-${TAG_NAME}.zip'
 
 def mail() {
     mail bcc: '', body: "<h1>Pipeline Failure</h1><br>Project Name: ${COMPONENT}\nURL = ${BUILD_URL}", cc: '', charset: 'UTF-8', from: 'divya5guntaka@gmail.com', mimeType: 'text/html', replyTo: 'divya5guntaka@gmail.com', subject: "ERROR CI: Component Name - ${COMPONENT}", to: "divya5guntaka@gmail.com"

@@ -6,6 +6,8 @@ def call() {
         common.checkout()
         common.codeQuality()
         common.testCases("python")
-        common.release()
+        if(env.TAG_NAME ==~ ".*") {
+            common.release("python")
+        }
     }
 }
