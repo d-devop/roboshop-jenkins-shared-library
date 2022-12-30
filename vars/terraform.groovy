@@ -33,8 +33,8 @@ def call() {
 
                     stage('Terraform Apply') {
                         input {
-                            message: "Apply ?"
-                            ok: "Yes"
+                            message "Apply ?"
+                            ok "Yes"
                         }
                         steps {
                             sh '''
