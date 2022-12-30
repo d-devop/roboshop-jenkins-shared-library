@@ -14,35 +14,36 @@ def call() {
                         ],
                 ]),
         ])
+        ansiColor('xterm') {
+            common.checkout()
 
-        common.checkout()
+            if (!ENVIRONMENT) {
+                env.ENVIRONMENT = "${env.ENVIRONMENT_DEFAULT}"
+            }
 
-        if (!ENVIRONMENT) {
-            env.ENVIRONMENT = "${env.ENVIRONMENT_DEFAULT}"
-        }
+            if (!ACTION) {
+                env.ACTION = "${env.ACTION_DEFAULT}"
+            }
 
-        if (!ACTION) {
-            env.ACTION = "${env.ACTION_DEFAULT}"
-        }
-
-        stage('Terraform Init') {
-            addShortText background: '#FFFF00', borderColor: '#FFFF00', color: '', link: '', text: "Env : ${ENVIRONMENT} | Action : ${ACTION}"
-            sh '''
+            stage('Terraform Init') {
+                addShortText background: '#FFFF00', borderColor: '#FFFF00', color: '', link: '', text: "Env : ${ENVIRONMENT} | Action : ${ACTION}"
+                sh '''
               terraform init -backend-config=env/${ENVIRONMENT}-backend.tfvars
             '''
-        }
+            }
 
-        stage('Terraform Plan') {
-            sh '''
+            stage('Terraform Plan') {
+                sh '''
               terraform plan -var-file=env/${ENVIRONMENT}.tfvars
             '''
-        }
+            }
 
-        stage('Terraform Apply') {
-            input message: 'Apply ?', ok: 'Yes'
-            sh '''
+            stage('Terraform Apply') {
+                input message: 'Apply ?', ok: 'Yes'
+                sh '''
               terraform apply -auto-approve -var-file=env/${ENVIRONMENT}.tfvars
             '''
+            }
         }
     }
 }
