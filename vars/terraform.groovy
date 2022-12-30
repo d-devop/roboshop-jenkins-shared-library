@@ -20,6 +20,7 @@ def call() {
                       terraform init -backend-config=env/${ENVIRONMENT}-backend.tfvars
                     '''
                 }
+            }
 
                 stage('Terraform Plan') {
                     steps {
@@ -28,8 +29,7 @@ def call() {
                         '''
                     }
                 }
-            }
         }
-
     }
+
 }
