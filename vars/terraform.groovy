@@ -3,12 +3,19 @@ def call() {
 
         agent any
 
-        stages{
+        options {
+            ansiColor('xterm')
+        }
 
-            stage('Terraform Plan'){
-                sh '''
-                  terraform plan 
-                '''
+        stages {
+
+            stage('Terraform Plan') {
+                steps {
+                    sh '''
+                      terraform plan 
+                    '''
+                }
+
             }
         }
 
