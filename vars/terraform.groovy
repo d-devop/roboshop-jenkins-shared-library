@@ -24,8 +24,8 @@ def call() {
                 stage('Terraform Plan') {
                     steps {
                         sh '''
-                      terraform plan -var-file=env/${ENVIRONMENT}.tfvars
-                    '''
+                          terraform plan -var-file=env/${ENVIRONMENT}.tfvars
+                        '''
                     }
                 }
 
