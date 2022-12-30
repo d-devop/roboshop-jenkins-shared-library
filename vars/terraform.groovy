@@ -14,6 +14,7 @@ def call() {
                         ],
                 ]),
         ])
+
         common.checkout()
 
         if (!ENVIRONMENT) {
